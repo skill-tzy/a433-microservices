@@ -10,7 +10,7 @@ docker images
 docker tag item-app:v1 ghcr.io/skill-tzy/item-app:v1
 
 # login masuk ke GitHub Container Registry
-docker login --username skill-tzy --password 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 ghcr.io
+docker login --username skill-tzy --password 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 ghcr.io
 
 # mengunggah image ke GitHub Container Registry
 docker push ghcr.io/skill-tzy/item-app:v1
