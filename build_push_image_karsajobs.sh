@@ -7,7 +7,7 @@ docker build -t skill-tzy/karsajobs:latest .
 docker tag skill-tzy/karsajobs:latest ghcr.io/skill-tzy/karsajobs:latest
 
 # login masuk ke GitHub Container Registry
-docker login --username skill-tzy --password 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 ghcr.io
+docker login --username skill-tzy --password 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 ghcr.io
 
 # mengunggah image ke GitHub Container Registry
 docker push ghcr.io/skill-tzy/karsajobs:latest
