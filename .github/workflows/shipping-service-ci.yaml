@@ -1,0 +1,42 @@
+# GitHub Actions Workflow
+name: Shipping Service App CI
+
+# Menentukan event yang akan men-trigger workflow
+# Yaitu setiap ada push baru pada branch `shipping-service`
+on:
+  push:
+    branches:
+      - shipping-service
+
+# Mendefinisikan job/pekerjaan yang akan dilakukan
+jobs:
+  karsajobs-ci:
+    name: Test-Build-Push
+
+    # Nama environment yang digunakan
+    environment: shipping-service-prod
+
+    # Menggunakan Ubuntu versi terbaru untuk menjalankan job
+    runs-on: ubuntu-latest
+
+    # Menyusun urutan tugas
+    steps:
+
+      # Checkout repo agar dapat diakses oleh workflow
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Menggunakan tools Hadolint untuk memeriksa berkas Dockerfile
+      - name: Runs Hadolint Dockerfile linting tool
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: "Dockerfile"
+
+      # Menjalankan proses build dan push image
+      - name: Build and Push Docker Image
+        env:
+          # Personal access token disimpan pada repository secrets GitHub
+          GHCR_PAT_TOKEN: ${{ secrets.GHCR_PAT_TOKEN }}
+        run: |
+          export GHCR_PAT_TOKEN=$GHCR_PAT_TOKEN
+          bash ./build_push_image_shipping_service.sh.sh
