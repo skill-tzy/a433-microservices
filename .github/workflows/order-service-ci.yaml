@@ -1,41 +1,41 @@
 # GitHub Actions Workflow
 name: Order Service App CI
 
-# menentukan event yang akan men-trigger workflow
-# yaitu setiap ada push baru pada branch `order-service`
+# Menentukan event yang akan men-trigger workflow
+# Yaitu setiap ada push baru pada branch `order-service`
 on:
   push:
     branches:
       - order-service
 
-# mendefinisikan job/pekerjaan yang akan dilakukan
+# Mendefinisikan job/pekerjaan yang akan dilakukan
 jobs:
   karsajobs-ci:
     name: Test-Build-Push
 
-    # nama environment yang digunakan
-    environment: order-svc-prod
+    # Nama environment yang digunakan
+    environment: order-service-prod
 
-    # menggunakan Ubuntu versi terbaru untuk menjalankan job
+    # Menggunakan Ubuntu versi terbaru untuk menjalankan job
     runs-on: ubuntu-latest
 
-    # menyusun urutan tugas
+    # Menyusun urutan tugas
     steps:
 
-      # checkout repo agar dapat diakses oleh workflow
+      # Checkout repo agar dapat diakses oleh workflow
       - name: Checkout Repository
         uses: actions/checkout@v4
-      
-      # menggunakan tools Hadolint untuk memeriksa berkas Dockerfile
+
+      # Menggunakan tools Hadolint untuk memeriksa berkas Dockerfile
       - name: Runs Hadolint Dockerfile linting tool
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: "Dockerfile"
 
-      # menjalankan proses build dan push image
+      # Menjalankan proses build dan push image
       - name: Build and Push Docker Image
         env:
-          # personal access token disimpan pada repository secrets GitHub
+          # Personal access token disimpan pada repository secrets GitHub
           GHCR_PAT_TOKEN: ${{ secrets.GHCR_PAT_TOKEN }}
         run: |
           export GHCR_PAT_TOKEN=$GHCR_PAT_TOKEN
