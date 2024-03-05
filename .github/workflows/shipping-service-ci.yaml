@@ -39,4 +39,4 @@ jobs:
           GHCR_PAT_TOKEN: ${{ secrets.GHCR_PAT_TOKEN }}
         run: |
           export GHCR_PAT_TOKEN=$GHCR_PAT_TOKEN
-          bash ./build_push_image_shipping_service.sh.sh
+          bash ./build_push_image_shipping_service.sh
